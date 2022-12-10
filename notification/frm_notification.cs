@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using notification.Properties;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace notification
@@ -61,8 +56,8 @@ namespace notification
                     Opacity -= 0.1;
                     Left -= 3;
 
-                    if (base.Opacity == 0.0)
-                        base.Close();
+                    if (Opacity == 0.0)
+                        Close();
 
                     break;
             }
@@ -73,5 +68,61 @@ namespace notification
             Timer.Interval = 1;
             action = frm_notification.actionEnum.close;
         }
+
+        public void setAlert(string msg, frm_notification.alertTypeEnum type)
+        {
+            if (Application.OpenForms["frm_notification"] != null)
+            {
+                Dispose();
+            }
+            else
+            {
+                Opacity = 0.0;
+                StartPosition = FormStartPosition.Manual;
+
+                x = Screen.PrimaryScreen.WorkingArea.Width - Width - 5;
+                y = Screen.PrimaryScreen.WorkingArea.Height - Height + 20;
+
+                Location = new Point(x, y);
+
+                switch (type)
+                {
+                    case frm_notification.alertTypeEnum.Success:
+                        picture_box.Image = Resources.done_64px;
+                        BackColor = Color.FromArgb(42, 171, 160);
+                        break;
+                    case frm_notification.alertTypeEnum.Warning:
+                        picture_box.Image = Resources.error_64px;
+                        BackColor = Color.FromArgb(255, 179, 2);
+                        break;
+                    case frm_notification.alertTypeEnum.Error:
+                        picture_box.Image = Resources.cancel_64px;
+                        BackColor = Color.FromArgb(255, 121, 70);
+                        break;
+                    case frm_notification.alertTypeEnum.Info:
+                        picture_box.Image = Resources.info_64px;
+                        BackColor = Color.FromArgb(71, 169, 248);
+                        break;
+                }
+
+                txt_message.Text = msg;
+                Show();
+
+                action = actionEnum.start;
+                Timer.Interval = 1;
+                Timer.Start();
+            }
+        }
+
+
+        //custom notification event
+        public static void Alert(string msg, frm_notification.alertTypeEnum type)
+        {
+            frm_notification f = new frm_notification();
+            f.setAlert(msg, type);
+        }
+
+        //example of utilization
+        //Notification.Alert("Your Text", frm_notification.alertTypeEnum.Warning);
     }
 }
