@@ -28,21 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_close = new System.Windows.Forms.PictureBox();
             this.txt_message = new System.Windows.Forms.Label();
             this.picture_box = new System.Windows.Forms.PictureBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.btn_close)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_box)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_close
             // 
+            this.btn_close.Image = global::notification.Properties.Resources.close_64px;
             this.btn_close.Location = new System.Drawing.Point(338, 18);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(30, 30);
             this.btn_close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btn_close.TabIndex = 25;
             this.btn_close.TabStop = false;
+            this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
             // txt_message
             // 
@@ -63,6 +67,10 @@
             this.picture_box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picture_box.TabIndex = 23;
             this.picture_box.TabStop = false;
+            // 
+            // Timer
+            // 
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // frm_notification
             // 
@@ -88,6 +96,7 @@
         private System.Windows.Forms.PictureBox btn_close;
         internal System.Windows.Forms.Label txt_message;
         private System.Windows.Forms.PictureBox picture_box;
+        internal System.Windows.Forms.Timer Timer;
     }
 }
 
